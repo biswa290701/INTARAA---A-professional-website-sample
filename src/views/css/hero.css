@@ -1,0 +1,209 @@
+/* === HERO SECTION === */
+.hero {
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+    background: #000;
+
+    background-image: url("../image/Bg_hero.png");
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    background-size: auto 100%;
+
+    display: flex;
+    align-items: center;
+}
+
+/* Flexible wrapper that pushes text to the right */
+.hero-inner {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    padding-right: 8%;
+}
+
+/* RIGHT SIDE TEXT */
+.hero-content {
+    max-width: 800px;
+    text-align: right;
+
+    /* Prevent text from overlapping the character */
+    margin-left: 40%;
+    margin-right: 10%;
+}
+
+/* Remove default h1 spacing completely */
+.hero-content h1,
+.hero-logo {
+    margin: 0;
+    padding: 0;
+    line-height: 0;    /* IMPORTANT – removes invisible spacing */
+}
+
+/* HERO LOGO IMAGE */
+.hero-logo img {
+    width: 320px;
+    max-width: 100%;
+    height: auto;
+    display: inline-block;
+    margin: 0;         /* absolutely no spacing */
+}
+
+/* HERO PARAGRAPH */
+.hero-content p {
+    font-size: 16px;
+    line-height: 1.55;
+    margin-top: 5px;    /* tightened gap under logo */
+    margin-bottom: 40px;
+}
+
+/* BUTTON ROW */
+.hero-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 25px;
+}
+
+.hero-buttons .btn {
+    padding: 12px 32px;
+    border-radius: 40px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-decoration: none;
+
+    background: linear-gradient(90deg, #e6e6e6 0%, #b8b8b8 100%);
+    color: #000;
+    box-shadow:
+        inset 0 1px 4px rgba(255,255,255,0.8),
+        inset 0 -2px 4px rgba(0,0,0,0.15),
+        0 3px 10px rgba(0,0,0,0.25);
+
+    transition: 0.25s ease;
+}
+
+.hero-buttons .btn:hover {
+    background: linear-gradient(90deg, #ffffff 0%, #d0d0d0 100%);
+    transform: translateY(-2px);
+}
+
+/* =========================
+   TRY DEMO – SHIMMER PILL
+   ========================= */
+.hero-buttons .demo-btn {
+    position: relative;
+
+    display: inline-flex;          /* IMPORTANT */
+    align-items: center;           /* vertical center */
+    justify-content: center;       /* horizontal center */
+
+    font-weight: 600;
+    color: #ffffff;
+
+    padding: 10px 26px;
+    border-radius: 22px;
+
+    background: linear-gradient(90deg, #23476f, #427a92);
+    cursor: pointer;
+    overflow: hidden;
+    white-space: nowrap;
+
+    border: none;
+    box-shadow: none;
+
+    line-height: 1;                /* IMPORTANT */
+    transition: transform 0.25s ease;
+}
+
+/* Hover lift */
+.hero-buttons .demo-btn:hover {
+    transform: translateY(-2px);
+    color: #111;
+}
+
+/* Shimmer effect */
+.hero-buttons .demo-btn::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -90%;
+    width: 70%;
+    height: 100%;
+
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,0.55),
+        transparent
+    );
+
+    transform: skewX(-20deg);
+    animation: demoShine 2.2s infinite ease-in-out;
+    pointer-events: none;
+}
+
+/* Click feedback */
+.hero-buttons .demo-btn:active {
+    transform: translateY(-1px) scale(0.97);
+}
+
+/* Shimmer animation */
+@keyframes demoShine {
+    0%   { left: -90%; }
+    60%  { left: 120%; }
+    100% { left: 120%; }
+}
+
+/* Disabled state for form submit buttons */
+.popup-form .submit-btn:disabled {
+    background: linear-gradient(90deg, #cfcfcf 0%, #a9a9a9 100%) !important;
+    cursor: not-allowed !important;
+    opacity: 0.7;
+    transform: none !important;
+    box-shadow:
+        inset 0 1px 3px rgba(255,255,255,0.6),
+        inset 0 -2px 3px rgba(0,0,0,0.12),
+        0 2px 6px rgba(0,0,0,0.15) !important;
+}
+
+.popup-form .submit-btn:disabled:hover {
+    background: linear-gradient(90deg, #cfcfcf 0%, #a9a9a9 100%) !important;
+    transform: none !important;
+}
+
+/* === MOBILE FIX === */
+@media (max-width: 900px) {
+
+    .hero {
+        background: #000 !important;
+        padding: 120px 5% 60px;
+        display: block;
+        text-align: center;
+    }
+
+    .hero-inner {
+        justify-content: center;
+        padding-right: 0;
+    }
+
+    .hero-content {
+        text-align: center;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .hero-content h1 {
+        font-size: 42px;
+        line-height: 0; /* maintain tight spacing on mobile */
+    }
+
+    .hero-logo img {
+        margin: 0 auto 15px auto;
+        display: block;
+    }
+
+    .hero-buttons {
+        justify-content: center;
+        flex-direction: column;
+        gap: 15px;
+    }
+}

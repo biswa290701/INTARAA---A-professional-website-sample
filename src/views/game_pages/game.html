@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>INTARAA WebGL Demo</title>
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/navbar.css">
+  <link rel="stylesheet" href="../css/game.css">
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="../image/favicon.png">
+  <link rel="shortcut icon" href="../image/favicon.png" type="image/png">
+</head>
+
+<body>
+
+  <div id="fixed-header">
+
+      <header class="navbar" id="top-navbar">
+      <h1 class="logo">
+          <a href="../index.html#home">
+              <img src="../image/logo_white.png" alt="INTARAA Logo">
+          </a>
+      </h1>
+
+          <div class="hamburger" id="hamburger">
+              <span></span>
+              <span></span>
+              <span></span>
+          </div>
+
+          <ul class="nav-links" id="nav-links">
+              <li><a href="../index.html#home">Home</a></li>
+              <li><a href="../index.html#products">Products</a></li>
+              <li><a href="../index.html#pricing">Prices</a></li>
+              <li><a href="../index.html#about">About Us</a></li>
+          </ul>
+      </header>
+  </div>
+
+  <!-- <a href="../index.html" class="back-btn">← Back</a> -->
+
+  <div id="unity-wrapper">
+    <div id="unity-container">
+      <canvas id="unity-canvas"></canvas>
+      <div id="unity-loading-bar">
+        <div id="unity-logo"></div>
+        <div id="unity-progress-bar-empty">
+          <div id="unity-progress-bar-full"></div>
+        </div>
+        <div id="unity-loading-text">Loading...</div>
+      </div>
+    </div>
+
+    <!-- Fullscreen Button -->
+    <div id="fullscreen-button">⤢ Fullscreen</div>
+  </div>
+
+  <script>
+      const buildUrl = "../Builds/Big_Build";
+      const loaderUrl = buildUrl + "/Newhope2025.loader.js";
+
+      const config = {
+        dataUrl: buildUrl + "/Newhope2025.data",
+        frameworkUrl: buildUrl + "/Newhope2025.framework.js",
+        codeUrl: buildUrl + "/Newhope2025.wasm",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "INTARAA",
+        productName: "WebGL Demo",
+        productVersion: "1.0",
+      };
+
+      const canvas = document.querySelector("#unity-canvas");
+      const loadingBar = document.querySelector("#unity-loading-bar");
+      const progressBarFull = document.querySelector("#unity-progress-bar-full");
+      const loadingText = document.querySelector("#unity-loading-text");
+
+      // ⭐ Make sure Unity receives focus
+      canvas.setAttribute("tabindex", "-1");
+
+      const script = document.createElement("script");
+      script.src = loaderUrl;
+
+      script.onload = () => {
+        createUnityInstance(canvas, config, (progress) => {
+          progressBarFull.style.width = (progress * 100) + "%";
+          loadingText.textContent = `Loading... ${Math.round(progress * 100)}%`;
+        }).then((unityInstance) => {
+
+          loadingBar.style.opacity = 0;
+          setTimeout(() => loadingBar.style.display = "none", 500);
+          document.getElementById("fullscreen-button").style.display = "inline-block";
+
+          document.getElementById("fullscreen-button").onclick = () => {
+            unityInstance.SetFullscreen(1);
+            document.body.classList.add("fullscreen-active");
+          };
+
+          // ⭐⭐⭐ MIC FIX — Resume Unity AudioContext on interaction
+          const resumeAudio = () => {
+            const ctx = unityInstance.Module?.ctx;
+            if (ctx && ctx.state === "suspended") {
+              ctx.resume();
+              console.log("%c[INTARAA] AudioContext resumed", "color:#4caf50;font-weight:bold;");
+            }
+          };
+
+          document.addEventListener("mousedown", resumeAudio, { once: true });
+          document.addEventListener("touchstart", resumeAudio, { once: true });
+          document.addEventListener("keydown", resumeAudio, { once: true });
+
+          // ⭐⭐⭐ MIC FIX — FORCE CANVAS FOCUS
+          setTimeout(() => {
+            try {
+              canvas.focus();
+              console.log("%c[INTARAA] Canvas focused for microphone", "color:#4caf50;font-weight:bold;");
+            } catch {}
+          }, 300);
+
+          // Keep reference
+          window.unityInstance = unityInstance;
+
+          // Fullscreen exit restore
+          document.addEventListener("fullscreenchange", () => {
+            if (!document.fullscreenElement) {
+              document.body.classList.remove("fullscreen-active");
+            }
+          });
+
+        }).catch((message) => alert(message));
+      };
+
+      document.body.appendChild(script);
+  </script>
+
+  <script src="../js/navbar_scrolling.js"></script>
+  <script src="../js/hamburg.js"></script>
+
+</body>
+</html>

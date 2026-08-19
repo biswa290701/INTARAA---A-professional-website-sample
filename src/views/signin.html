@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In – INTARAA</title>
+
+    <link rel="stylesheet" href="css/style_login.css">
+
+</head>
+
+<body>
+
+    <header class="navbar">
+        <h1 class="logo">INTARAA</h1>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="signin.html">Sign In</a></li>
+        </ul>
+    </header>
+
+    <!-- ⭐ SIGN IN SECTION WITH BACKGROUND IMAGE ⭐ -->
+    <div class="signin-page-bg">
+
+        <div class="signin-box">
+            <h2>Sign In</h2>
+
+            <form id="signinForm">
+
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+
+                <button type="submit">Sign In</button>
+            </form>
+
+            <!-- <div class="signup-link">
+                <p>Don't have an account? <a href="signup.html">Sign up</a></p>
+            </div> -->
+
+            <p style="text-align:center; margin-top: 10px;">
+                <a href="forgot_password.html" style="color:#5498ba; font-weight:bold;">Forgot Password?</a>
+            </p>
+        </div>
+    </div>
+
+    <div id="errorDialog" class="dialog">
+    <div class="dialog-box">
+        <h3>Error</h3>
+        <p id="errorMessage"></p>
+        <button onclick="closeErrorDialog()">Try Again</button>
+    </div>
+</div>
+
+
+<script src="../js/navbarsettings.js"></script>
+
+<script>
+document.getElementById("signinForm").addEventListener("submit", async function(e) {
+    e.preventDefault(); // stop form from submitting normally
+
+    const response = await fetch("/signin", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            email: document.getElementById("email").value,
+            password: document.getElementById("password").value
+        })
+    });
+
+    const result = await response.json();
+
+    if (result.error) {
+        showErrorDialog(result.error);
+    } else if (result.success) {
+        window.location.href = result.redirect;
+    }
+});
+
+function showErrorDialog(message) {
+    document.getElementById("errorMessage").textContent = message;
+    document.getElementById("errorDialog").style.display = "flex";
+}
+
+function closeErrorDialog() {
+    document.getElementById("errorDialog").style.display = "none";
+}
+</script>
+
+
+</body>
+</html>

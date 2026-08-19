@@ -1,0 +1,180 @@
+/* PRICING SECTION */
+.pricing {
+    padding: 100px 3% 60px;
+    background: #000;
+    text-align: center;
+}
+
+.pricing h2 {
+    font-size: 42px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.subheading {
+    color: #fff;
+    margin-bottom: 60px;
+}
+
+/* FLEX CONTAINER */
+.pricing-container {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+/* PRICING CARD */
+.pricing-card {
+    background: #fafafa;
+    border-radius: 18px;
+    padding: 35px 30px 45px;
+    width: 280px;
+    border: 1px solid #e8e8e8;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+    position: relative;
+    transition: 0.25s ease;
+}
+
+.pricing-card:hover {
+    transform: translateY(-6px);
+}
+
+/* POPULAR TAG */
+.popular {
+    border: 2px solid #e5e5e5;
+    transform: scale(1.05);
+}
+
+.popular-badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #e5e5e5;
+    color: #000;
+    padding: 6px 18px;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 50px;
+}
+
+/* HEADER */
+.price-header h3 {
+    font-size: 26px;
+    font-weight: 800;
+    color: #000;
+    margin-bottom: 5px;
+}
+
+.credit {
+    font-size: 15px;
+    color: #008000;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+/* PRICE */
+.price-big {
+    font-size: 25px;
+    font-weight: 800;
+    margin: 15px 0 25px;
+    color: #000;
+}
+
+.custom-price {
+    font-size: 25px;
+    font-weight: 400;
+    margin: 15px 0 25px;
+    color: #000;
+}
+
+.price-big span {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* BUTTON */
+.price-btn {
+    width: 100%;
+    padding: 12px 0;
+    background: #e5e5e5;
+    border: none;
+    border-radius: 40px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-bottom: 30px;
+    transition: 0.2s;
+}
+
+.price-btn:hover {
+    background: #cfcfcf;
+}
+
+.price-btn.black {
+    background: #000;
+    color: #fff;
+}
+
+.price-btn.black:hover {
+    background: #333;
+}
+
+/* FEATURES */
+.feature-list {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.feature-list li {
+    margin: 8px 0;
+    font-size: 15px;
+    color: #444;
+}
+
+/* Credits section */
+.credits-title {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    color: #000;
+}
+
+.view-more {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: underline;
+    color: #000;
+}
+
+.plan-desc {
+    font-size: 14px;
+    color: #666;
+    margin-top: 4px;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+/* MOBILE */
+@media(max-width: 900px) {
+    .pricing-card {
+        width: 100%;
+        max-width: 350px;
+    }
+
+    .popular {
+        transform: scale(1);
+    }
+}
+
+@media(min-width: 1200px) {
+    .pricing-container {
+        flex-wrap: nowrap;
+    }
+}

@@ -1,0 +1,13 @@
+    <script>
+    function openCalendlyPopup() {
+        Calendly.initPopupWidget({
+            url: 'https://calendly.com/koustav-inexastudios/30min'
+        });
+    }
+    </script>
+
+    <button id="calendly-floating-btn" onclick="openCalendlyPopup()">
+        Book a Call
+    </button>
+
+    <!-- add this in index.html at the end -->

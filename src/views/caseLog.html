@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case List</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f7f7f7;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* NAV BAR */
+        .navbar {
+            background: #333;
+            padding: 12px 20px;
+            display: flex;
+            gap: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar button {
+            background: #555;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .navbar button:hover {
+            background: #777;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            table-layout: fixed;
+        }
+
+        table th, table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        table th {
+            background: #333;
+            color: white;
+        }
+
+        /* COLUMN WIDTHS */
+        th:nth-child(1), td:nth-child(1) {
+            width: 90px;
+        }
+
+        th:nth-child(2), td:nth-child(2) {
+            width: 40%;
+            word-break: break-word;
+        }
+
+        th:nth-child(3), td:nth-child(3) {
+            width: 180px;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        th:nth-child(4), td:nth-child(4) {
+            width: 140px;
+            text-align: center;
+        }
+
+        .error {
+            color: red;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .loader {
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .view-btn {
+            padding: 5px 12px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .view-btn:hover {
+            background: #0056b3;
+        }
+
+        /* MODAL BACKDROP */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+        }
+
+        /* MODAL BOX */
+        .modal-content {
+            background: white;
+            margin: 8% auto;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 600px;
+            max-height: 70vh;     /* smaller modal */
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .modal-content h2 {
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        /* SCROLLABLE CHAT AREA */
+        #chatContent {
+            overflow-y: auto;
+            max-height: 50vh;
+            padding-right: 6px;
+        }
+
+        /* CHAT ITEMS */
+        .chat-item {
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .chat-item strong {
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        /* CLOSE BUTTON */
+        .close-btn {
+            position: absolute;
+            right: 15px;
+            top: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* OPTIONAL SCROLLBAR POLISH (Webkit) */
+        #chatContent::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        #chatContent::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION BAR -->
+    <div class="navbar">
+        <button onclick="location.href='/caselist'">Case List</button>
+        <button onclick="location.href='/chatlog'">Chat Log</button>
+        <button onclick="location.href='/logout'">Logout</button>
+    </div>
+
+    <h1>All Cases</h1>
+
+    <div class="container">
+        <div id="loader" class="loader">Loading cases...</div>
+        <div id="error" class="error"></div>
+
+        <table id="caseTable" style="display:none;">
+            <thead>
+                <tr>
+                    <th>Case ID</th>
+                    <th>Session ID</th>
+                    <th>Updated At</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="caseBody"></tbody>
+        </table>
+    </div>
+
+    <!-- CHAT MODAL -->
+    <div id="chatModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2>Chat History</h2>
+            <div id="chatContent"></div>
+        </div>
+    </div>
+
+    <script>
+        function formatToLocalTime(utcTime) {
+            if (!utcTime) return "—";
+
+            const date = new Date(utcTime);
+
+            return date.toLocaleString(undefined, {
+                year: "numeric",
+                month: "short",
+                day: "2-digit",
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: true
+            });
+        }
+
+        async function loadCases() {
+            try {
+                const res = await fetch("/chatLogs", { method: "POST" });
+                const data = await res.json();
+
+                if (!data.success) {
+                    document.getElementById("error").innerText = "Failed to load cases";
+                    return;
+                }
+
+                const tbody = document.getElementById("caseBody");
+                tbody.innerHTML = "";
+
+                /* ✅ SORT: latest updatedAt FIRST, nulls LAST */
+                const sortedCases = [...data.caseChats].sort((a, b) => {
+                    if (!a.updatedAt && !b.updatedAt) return 0;
+                    if (!a.updatedAt) return 1;
+                    if (!b.updatedAt) return -1;
+                    return new Date(b.updatedAt) - new Date(a.updatedAt);
+                });
+
+                sortedCases.forEach(c => {
+                    const row = document.createElement("tr");
+
+                    row.innerHTML = `
+                        <td>${c.caseid}</td>
+                        <td>${c.sessionId || "—"}</td>
+                        <td>${formatToLocalTime(c.updatedAt)}</td>
+                        <td></td>
+                    `;
+
+                    const btn = document.createElement("button");
+                    btn.className = "view-btn";
+                    btn.innerText = "View Chat";
+                    btn.onclick = () => viewChat(c.chat);
+
+                    row.cells[3].appendChild(btn);
+                    tbody.appendChild(row);
+                });
+
+                document.getElementById("loader").style.display = "none";
+                document.getElementById("caseTable").style.display = "table";
+
+            } catch (e) {
+                document.getElementById("loader").style.display = "none";
+                document.getElementById("error").innerText =
+                    "Error loading cases: " + e.message;
+            }
+        }
+
+        function viewChat(chatArray) {
+            const chatContent = document.getElementById("chatContent");
+            chatContent.innerHTML = "";
+
+            if (!chatArray || chatArray.length === 0) {
+                chatContent.innerHTML = "<p>No chat history available.</p>";
+            } else {
+                chatArray.forEach(c => {
+                    const div = document.createElement("div");
+                    div.className = "chat-item";
+                    div.innerHTML = `
+                        <strong>User:</strong> ${c.question}
+                        <br>
+                        <strong>AI:</strong> ${c.answer}
+                    `;
+                    chatContent.appendChild(div);
+                });
+            }
+
+            document.getElementById("chatModal").style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById("chatModal").style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target === document.getElementById("chatModal")) {
+                closeModal();
+            }
+        };
+
+        loadCases();
+    </script>
+
+</body>
+</html>

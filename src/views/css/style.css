@@ -1,0 +1,177 @@
+/* GENERAL RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+.logo a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 25px;
+}
+
+.logo img {
+    height: 38px;      /* adjust size as you like */
+    width: auto;       /* keeps proper aspect ratio */
+    display: block;    /* removes extra inline spacing */
+}
+
+body {
+    background: #000;
+    color: #fff;
+    scroll-behavior: smooth;
+    padding-top: 60px;
+}
+
+/* BUTTONS */
+.btn, .btn-light {
+    padding: 12px 22px;
+    display: inline-block;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    margin-top: 15px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.btn {
+    background: #5498ba;
+    color: #fff;
+}
+
+.btn:hover {
+    background: #3d7b96;
+}
+
+.btn {
+    background: linear-gradient(90deg, #e6e6e6 0%, #b8b8b8 100%);
+    color: #000;
+    border-radius: 40px;  /* pill shape */
+    padding: 12px 32px;   /* slightly bigger padding for the pill look */
+    font-weight: 700;
+    letter-spacing: 1px;
+    box-shadow:
+        inset 0 1px 4px rgba(255,255,255,0.8),
+        inset 0 -2px 4px rgba(0,0,0,0.15),
+        0 3px 10px rgba(0,0,0,0.25);
+}
+
+.btn:hover {
+    background: linear-gradient(90deg, #ffffff 0%, #d0d0d0 100%);
+    transform: translateY(-2px);
+    box-shadow:
+        inset 0 1px 4px rgba(255,255,255,0.8),
+        inset 0 -2px 4px rgba(0,0,0,0.15),
+        0 6px 16px rgba(0,0,0,0.35);
+}
+
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.popup {
+  background: #ffffff;
+  padding: 30px;
+  width: 350px;
+  border-radius: 16px;
+  text-align: center;
+  color: #000;
+  position: relative;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+}
+
+.popup input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.close-btn {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* Floating Calendly Button */
+#calendly-floating-btn {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    background: #2087ff;
+    color: #fff;
+    font-weight: 600;
+    padding: 14px 32px;
+    border: none;
+    border-radius: 40px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.2s ease;
+    z-index: 999999; /* above everything */
+    box-shadow:
+        inset 0 1px 4px rgba(255,255,255,0.4),
+        inset 0 -2px 4px rgba(0,0,0,0.15),
+        0 3px 10px rgba(0,0,0,0.35);
+}
+
+#calendly-floating-btn:hover {
+    background: #2072ff;
+    transform: translateY(-2px);
+}
+
+#calendly-floating-btn:active {
+    transform: scale(0.98);
+}
+
+/* =========================
+   SOCIAL FOOTER
+========================= */
+
+.social-footer {
+    background: #fff;
+    padding: 0 0 40px;  /* top left-right bottom  */
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+.social-footer a {
+    font-size: 26px;
+    color: #7b7777c5;
+    text-decoration: none;
+    transition: transform 0.25s ease, color 0.25s ease;
+}
+
+.social-footer a:hover {
+    transform: translateY(-4px);
+    color: #5b5858;
+}
+
+
+/* =========================
+   SNOWFALL EFFECT
+   ========================= */
+#snowfall {
+    position: fixed;
+    top: 50px;                 /* SAME as navbar height */
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 50px);
+    pointer-events: none;      /* allow clicks through */
+    z-index: 1;              /* below popups, above content */
+}

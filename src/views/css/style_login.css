@@ -1,0 +1,254 @@
+/* ================================
+   GLOBAL FIXES (match INTARAA site)
+================================ */
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+    font-family: "Poppins", sans-serif;
+    background: #000000; /* BLACK BACKGROUND */
+    color: #000; /* Default text black */
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* ================================
+   NAVBAR (MATCHES MAIN SITE)
+================================ */
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+
+    background: #0d0d17;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 60px;
+    z-index: 9999;
+}
+
+.navbar .logo {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin: 0;
+    color: #fff;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 35px;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: #ddd;
+    font-size: 16px;
+    font-weight: 500;
+    transition: 0.2s ease;
+}
+
+.navbar ul li a:hover {
+    color: #fff;
+}
+
+/* ================================
+   SIGN-IN PAGE BACKGROUND
+================================ */
+
+.signin-page-bg {
+    width: 100%;
+    min-height: 100vh;
+
+    background: #000; /* FULL BLACK PAGE */
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    padding-top: 150px;
+    padding-bottom: 50px;
+}
+
+/* ================================
+   SIGN-IN BOX — PURE WHITE CARD
+================================ */
+
+.signin-box {
+    width: 100%;
+    max-width: 380px;
+
+    background: #ffffff; /* WHITE BOX */
+    color: #000000; /* BLACK TEXT */
+
+    padding: 35px 32px;
+    border-radius: 14px;
+
+    box-shadow: 
+        0 4px 25px rgba(255, 255, 255, 0.12),
+        0 0 40px rgba(255,255,255,0.08);
+}
+
+.signin-box h2 {
+    margin: 0 0 25px 0;
+    font-size: 32px;
+    font-weight: 700;
+    text-align: center;
+    color: #000;
+}
+
+/* ================================
+   INPUT FIELDS (White card styling)
+================================ */
+
+.signin-box label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    font-size: 14px;
+    color: #000;
+}
+
+.signin-box input[type="email"],
+.signin-box input[type="password"] {
+    width: 100%;
+    padding: 12px 15px;
+
+    border-radius: 10px;
+    border: 1px solid #ccc;
+
+    background: #f5f5f5;
+    color: #000;
+
+    margin-bottom: 15px;
+    font-size: 15px;
+}
+
+.signin-box input:focus {
+    outline: none;
+    border-color: #000;
+    background: #fff;
+}
+
+/* ================================
+   BUTTON (INTARAA style)
+================================ */
+
+.signin-box button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 40px;
+    border: none;
+    cursor: pointer;
+
+    font-weight: 700;
+    letter-spacing: 1px;
+    font-size: 16px;
+
+    background: linear-gradient(90deg, #e6e6e6 0%, #b8b8b8 100%);
+    color: #000;
+
+    box-shadow:
+        inset 0 1px 4px rgba(255,255,255,0.8),
+        inset 0 -2px 4px rgba(0,0,0,0.15),
+        0 3px 10px rgba(0,0,0,0.25);
+
+    transition: 0.25s ease;
+}
+
+.signin-box button:hover {
+    background: linear-gradient(90deg, #ffffff 0%, #d0d0d0 100%);
+    transform: translateY(-2px);
+}
+
+.signin-box button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ================================
+   FORGOT PASSWORD LINK
+================================ */
+
+.signin-box a {
+    text-decoration: none;
+    color: #5498ba;
+    font-weight: bold;
+}
+
+.signin-box a:hover {
+    text-decoration: underline;
+}
+
+/* ================================
+   ERROR DIALOG
+================================ */
+
+.dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+
+    background: rgba(0,0,0,0.7);
+    justify-content: center;
+    align-items: center;
+
+    z-index: 10000;
+}
+
+.dialog-box {
+    background: #fff;
+    padding: 20px 30px;
+    border-radius: 10px;
+    text-align: center;
+
+    color: #000;
+    box-shadow: 0 0 20px rgba(255,255,255,0.4);
+}
+
+.dialog-box button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+
+    background: #000;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+/* ================================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 500px) {
+    .navbar {
+        padding: 0 20px;
+    }
+
+    .signin-box {
+        padding: 25px 20px;
+    }
+
+    .signin-box h2 {
+        font-size: 26px;
+    }
+}
