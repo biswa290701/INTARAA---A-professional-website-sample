@@ -1,4 +1,7 @@
 import dotenv from "dotenv";
+import dns from "node:dns";
+dns.setServers(["8.8.8.8"]);
+
 import session from "express-session";
 import MongoDBStoreSession from "connect-mongodb-session";
 import mongoose from "mongoose";

@@ -37,7 +37,7 @@ export async function signUp(req, res) {
     return res.status(400).send("Passwords do not match.");
 
   try {
-    const existing = await findOne({ email });
+    const existing = await User.findOne({ email });
     if (existing) return res.status(400).send("Email is already registered.");
 
     const hashedPassword = await hash(password, 10);

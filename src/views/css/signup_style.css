@@ -66,28 +66,10 @@ html, body {
 }
 
 /* ================================
-   SIGN-IN PAGE BACKGROUND
+   SIGN-UP BOX — PURE WHITE CARD
 ============================== */
 
-.signin-page-bg {
-    width: 100%;
-    min-height: 100vh;
-
-    background: #000; /* FULL BLACK PAGE */
-
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-
-    padding-top: 150px;
-    padding-bottom: 50px;
-}
-
-/* ================================
-   SIGN-IN BOX — PURE WHITE CARD
-============================== */
-
-.signin-box {
+.signup-box {
     width: 100%;
     max-width: 380px;
 
@@ -96,13 +78,14 @@ html, body {
 
     padding: 35px 32px;
     border-radius: 14px;
+    margin: 150px auto 50px;
 
     box-shadow: 
         0 4px 25px rgba(255, 255, 255, 0.12),
         0 0 40px rgba(255,255,255,0.08);
 }
 
-.signin-box h2 {
+.signup-box h2 {
     margin: 0 0 25px 0;
     font-size: 32px;
     font-weight: 700;
@@ -114,7 +97,7 @@ html, body {
    INPUT FIELDS (White card styling)
 ============================== */
 
-.signin-box label {
+.signup-box label {
     display: block;
     margin-bottom: 6px;
     font-weight: 600;
@@ -122,8 +105,9 @@ html, body {
     color: #000;
 }
 
-.signin-box input[type="email"],
-.signin-box input[type="password"] {
+.signup-box input[type="text"],
+.signup-box input[type="email"],
+.signup-box input[type="password"] {
     width: 100%;
     padding: 12px 15px;
 
@@ -137,46 +121,17 @@ html, body {
     font-size: 15px;
 }
 
-.signin-box input:focus {
+.signup-box input:focus {
     outline: none;
     border-color: #000;
     background: #fff;
 }
 
 /* ================================
-   SIGNUP LINK
-============================== */
-
-.signup-link {
-    text-align: center;
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 1px solid #eee;
-}
-
-.signup-link p {
-    margin: 0;
-    font-size: 14px;
-    color: #555;
-}
-
-.signup-link a {
-    color: #5498ba;
-    font-weight: bold;
-    text-decoration: none;
-    margin-left: 5px;
-}
-
-.signup-link a:hover {
-    color: #1a3340;
-    text-decoration: underline;
-}
-
-/* ================================
    BUTTON (INTARAA style)
 ============================== */
 
-.signin-box button {
+.signup-box button {
     width: 100%;
     padding: 12px;
     border-radius: 40px;
@@ -198,70 +153,34 @@ html, body {
     transition: 0.25s ease;
 }
 
-.signin-box button:hover {
+.signup-box button:hover {
     background: linear-gradient(90deg, #ffffff 0%, #d0d0d0 100%);
     transform: translateY(-2px);
 }
 
-.signin-box button:disabled {
+.signup-box button:disabled {
     opacity: 0.6;
     cursor: not-allowed;
     transform: none;
 }
 
 /* ================================
-   FORGOT PASSWORD LINK
+   SIGN-IN LINK
 ============================== */
 
-.signin-box a {
+.signup-box a {
     text-decoration: none;
     color: #5498ba;
     font-weight: bold;
 }
 
-.signin-box a:hover {
+.signup-box a:hover {
     text-decoration: underline;
 }
 
-/* ================================
-   ERROR DIALOG
-============================== */
-
-.dialog {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: none;
-
-    background: rgba(0,0,0,0.7);
-    justify-content: center;
-    align-items: center;
-
-    z-index: 10000;
-}
-
-.dialog-box {
-    background: #fff;
-    padding: 20px 30px;
-    border-radius: 10px;
+.signin-link {
     text-align: center;
-
-    color: #000;
-    box-shadow: 0 0 20px rgba(255,255,255,0.4);
-}
-
-.dialog-box button {
     margin-top: 15px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 10px;
-
-    background: #000;
-    color: #fff;
-    cursor: pointer;
-    font-weight: 700;
 }
 
 /* ================================
@@ -273,11 +192,11 @@ html, body {
         padding: 0 20px;
     }
 
-    .signin-box {
+    .signup-box {
         padding: 25px 20px;
     }
 
-    .signin-box h2 {
+    .signup-box h2 {
         font-size: 26px;
     }
 }
