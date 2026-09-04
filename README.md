@@ -2,6 +2,10 @@
 
 INTARAA is a web-based platform that combines a static/HTML-CSS-JavaScript landing website with a Unity WebGL application and a Node.js/Express backend.
 
+<p align="center">
+  <img src="./assets/intaraa-landing.png" alt="INTARAA Landing Page" width="100%">
+</p>
+
 The website provides:
 
 - A public INTARAA landing page
